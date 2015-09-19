@@ -24,9 +24,22 @@ namespace CoughDetection
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IAudioSource source;
+        private EnergyBeatDetector detector;
+        private Metronome metronome;
+        private Signal current;
+
+        private List<ComplexSignal> sample;
+        private bool initializing = true;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            metronome = new Metronome();
+            metronome.SynchronizingObject = lbManualTempo;
+            metronome.TempoDetected += metronome_TempoDetected;
+
         }
     }
 }
